@@ -90,7 +90,7 @@ int main() {
 				safetyPoint[safetyCount++] = Point(x, y);
 		}
 
-	bruteForce(0, 0); // (0, 0) 지점을 시작노드로 하여 BFS를 이용한 브루트포스를 실행한다.
+	bruteForce(0, 0);
 	cout << maxSafety;
 	return 0;
 }
