@@ -72,7 +72,7 @@ void bruteForce(int pos, int idx) {
 			Point point = safetyPoint[i];  // safetyPoint 배열에 차례대로 안전한 공간의 좌표값이 들어있다.
 			map[point.y][point.x] = 1; // 해당 공간에 벽돌을 세운다.
 			bruteForce(pos + 1, i + 1);
-			map[point.y][point.x] = 0; // 원상복구시킨다.
+			map[point.y][point.x] = 0; // 세운 벽돌의 위치를 이동시켜야하므로 초기화해준다.
 		}
 	}
 }
