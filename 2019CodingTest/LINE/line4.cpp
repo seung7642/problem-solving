@@ -14,7 +14,6 @@ int main(void) {
 	}
 
 	int ans = 0;
-	// 앉은 자리기준 좌측으로 최대값과 우측으로 최댓값을 비교한다.
 	for (int i = 0; i < N; i++) {
 		int maxDistance = 0;
 
