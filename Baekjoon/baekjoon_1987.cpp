@@ -28,7 +28,7 @@ void dfs(int x, int y, int step) {
 
             if (!alpha[idx]) {
                 alpha[idx] = true;
-                algo(nextX, nextY, step + 1);
+                dfs(nextX, nextY, step + 1);
                 alpha[idx] = false;
             }
         }
