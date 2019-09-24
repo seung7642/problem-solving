@@ -8,7 +8,7 @@ constexpr int dy[] = { -1, 1, 0, 0 };
 
 int N, M;
 int destinationX, destinationY;
-int miniMumTime;
+int minimumTime;
 int cnt;
 int map[MAX][MAX];
 bool visited[MAX][MAX];
@@ -47,7 +47,15 @@ int bfs(int x, int y) {
 }
 
 // 깊이 == 최소시간을 가지는 경로의 갯수를 구한다.
-void dfs(int x, int y) {
+void dfs(int x, int y, int step) {
+	// 재귀 종료 조건: (0, 0)으로 출발해 목적지 좌표로 도착했다면
+	if (step == minimumTime) {
+		if (x == destinationX && y == destinationY) {
+			cnt++;
+			return;
+		}
+		else return;
+	}
 
 	visited[y][x] = true;
 	for (int i = 0; i < 4; i++) {
@@ -56,14 +64,9 @@ void dfs(int x, int y) {
 
 		if (!visited[nextY][nextX]) {
 			visited[nextY][nextX] = true;
-			dfs(nextX, nextY); // 시작 정점이 가지는 간선으로 깊이 우선 탐색(dfs)를 돌린다.
+			dfs(nextX, nextY, step + 1);
 			visited[nextY][nextX] = false;
 		}
-	}
-	// 재귀 종료 조건: (0, 0)으로 출발해 목적지 좌표로 도착했다면
-	if (map[y][x] == miniMumTime) {
-		cnt++;
-		return;
 	}
 }
 
@@ -74,9 +77,12 @@ int main(void) {
 	bfs(0, 0);
 	cout << map[destinationY][destinationX] << "\n";
 
-	miniMumTime = map[destinationY][destinationX];
+	minimumTime = map[destinationY][destinationX];
 	memset(map, false, sizeof(map));
 	memset(visited, false, sizeof(visited));
+
+	dfs(0, 0, 0);
+	cout << cnt << "\n";
 
 	return 0;
 }
