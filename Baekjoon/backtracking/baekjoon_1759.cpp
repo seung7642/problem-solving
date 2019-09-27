@@ -29,7 +29,7 @@ void dfs(int node, int depth, int n, int m) { // n은 모음, m은 자음
 			else
 				nextM += 1;
 
-			dfs(i, depth + 1, nextN, nextM);
+			dfs(i + 1, depth + 1, nextN, nextM);
 			visited[i] = false;
 		}
 	}
