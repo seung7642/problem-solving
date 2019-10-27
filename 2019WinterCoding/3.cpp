@@ -8,7 +8,6 @@
 // height : 3
 // result : 15
 #include <iostream>
-#include <vector>
 #include <queue>
 #include <cmath>
 using namespace std;
@@ -119,7 +118,7 @@ int getCost(int startDomain, int endDomain) { // start 도메인에서 end 도�
 void changeDomain(int startDomain, int endDomain) { // startDomain -> endDomain으로 도메인 초기화
     for (int y = 0; y < N; y++) {
         for (int x = 0; x < N; x++) {
-            if (domainMap[y][x] = startDomain)
+            if (domainMap[y][x] == startDomain)
                 domainMap[y][x] = endDomain;
         }
     }
@@ -160,6 +159,5 @@ int main() {
     }
 
     cout << ans << "\n";
-
     return 0;
 }
