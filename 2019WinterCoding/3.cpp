@@ -8,6 +8,7 @@
 // height : 3
 // result : 15
 #include <iostream>
+#include <vector>
 #include <queue>
 #include <cmath>
 using namespace std;
@@ -22,11 +23,20 @@ int N;
 int height;
 int ans;
 
+void init() {
+    cin >> N;
+    for (int y = 0; y < N; y++)
+        for (int x = 0; x < N; x++)
+            cin >> map[y][x];
+
+    cin >> height;
+}
+
 bool rangeCheck(int x, int y) {
     return 0 <= x && x < N && 0 <= y && y < N;
 }
 
-void setDomain(int x, int y, int domain) {
+void bfs(int x, int y, int domain) {
     queue<pair<int, int>> q;
     q.push({ x, y });
     visited[y][x] = true;
@@ -47,6 +57,17 @@ void setDomain(int x, int y, int domain) {
                     domainMap[nextY][nextX] = domain;
                     q.push({ nextX, nextY });
                 }
+            }
+        }
+    }
+}
+
+void setDomain() { // domainMap에 도메인 설정
+    int domainCount = 0;
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < N; x++) {
+            if (!visited[y][x]) {
+                bfs(x, y, ++domainCount);
             }
         }
     }
@@ -114,21 +135,8 @@ bool isUnify(int domain) {
 }
 
 int main() {
-    cin >> N;
-    for (int y = 0; y < N; y++)
-        for (int x = 0; x < N; x++)
-            cin >> map[y][x];
-
-    cin >> height;
-
-    int domainCount = 0;
-    for (int y = 0; y < N; y++) { // 도메인 설정
-        for (int x = 0; x < N; x++) {
-            if (!visited[y][x]) {
-                setDomain(x, y, ++domainCount);
-            }
-        }
-    }
+    init();
+    setDomain();
 
     while (true) { // domainMap의 모든 영역이 1이 될때까지 반복
         vector<int> v;
