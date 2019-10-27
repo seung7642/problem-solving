@@ -1,3 +1,8 @@
+// 입력 예)
+// N : 9, M : 9
+// destinationX : 2
+// destinationY : 1
+// result : 3 3
 #include <iostream>
 #include <queue>
 using namespace std;
@@ -13,8 +18,11 @@ int cnt;
 int map[MAX][MAX];
 bool visited[MAX][MAX];
 
-// 잡을 수 있는 최소 시간을 구한다.
-int bfs(int x, int y) {
+bool rangeCheck(int x, int y) {
+    return 0 <= x && x < N && 0 <= y && y < M;
+}
+
+void bfs(int x, int y) { // 잡을 수 있는 최소 시간을 구한다.
     queue<pair<int, int>> q;
     q.push({ x, y });
     visited[y][x] = true;
@@ -29,7 +37,7 @@ int bfs(int x, int y) {
             int nextX = x + dx[i];
             int nextY = y + dy[i];
 
-            if (0 <= nextX && nextX < N && 0 <= nextY && nextY < M) {
+            if (rangeCheck(nextX, nextY)) {
                 if (!visited[nextY][nextX]) {
                     visited[nextY][nextX] = true;
                     map[nextY][nextX] = map[y][x] + 1; // 깊이를 누적시킨다.
@@ -42,13 +50,9 @@ int bfs(int x, int y) {
             }
         }
     }
-
-    return 0;
 }
 
-// 깊이 == 최소시간을 가지는 경로의 갯수를 구한다.
-void dfs(int x, int y, int step) {
-    // 재귀 종료 조건: (0, 0)으로 출발해 목적지 좌표로 도착했다면
+void dfs(int x, int y, int step) { // 깊이 == 최소시간을 가지는 경로의 갯수를 구한다.
     if (step == minimumTime) {
         if (x == destinationX && y == destinationY) {
             cnt++;
@@ -62,7 +66,7 @@ void dfs(int x, int y, int step) {
         int nextX = x + dx[i];
         int nextY = y + dy[i];
 
-        if (!visited[nextY][nextX]) {
+        if (rangeCheck(nextX, nextY) && !visited[nextY][nextX]) {
             visited[nextY][nextX] = true;
             dfs(nextX, nextY, step + 1);
             visited[nextY][nextX] = false;
@@ -70,7 +74,7 @@ void dfs(int x, int y, int step) {
     }
 }
 
-int main(void) {
+int main() {
     cin >> N >> M;
     cin >> destinationX >> destinationY;
 
