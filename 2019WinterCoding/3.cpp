@@ -8,6 +8,7 @@
 // height : 3
 // result : 15
 #include <iostream>
+#include <vector>
 #include <queue>
 #include <cmath>
 using namespace std;
