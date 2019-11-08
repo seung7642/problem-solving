@@ -43,8 +43,7 @@ void bfs(int x, int y, int domain) {
     domainMap[y][x] = domain;
 
     while (!q.empty()) {
-        int x = q.front().first;
-        int y = q.front().second;
+        auto [x, y] = q.front(); // C++17
         q.pop();
 
         for (int i = 0; i < 4; i++) {
