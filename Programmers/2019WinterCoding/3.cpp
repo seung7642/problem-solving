@@ -7,10 +7,7 @@
 //     [10 10 10 20]]
 // height : 3
 // result : 15
-#include <iostream>
-#include <vector>
-#include <queue>
-#include <cmath>
+#include <bits/stdc++.h>
 using namespace std;
 
 constexpr int directionX[] = { 0, 0, -1, 1 };
