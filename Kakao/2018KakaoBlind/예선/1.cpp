@@ -1,5 +1,4 @@
-#include <iostream>
-#include <cmath>
+#include <bits/stdc++.h>
 using namespace std;
 
 constexpr int contest2017[] = { 0, 5000000, 3000000, 2000000, 500000, 300000, 100000 };
