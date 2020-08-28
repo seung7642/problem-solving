@@ -1,4 +1,4 @@
-package graph.search.shortestPath;
+package graph.shortestPath;
 
 import java.util.*;
 
