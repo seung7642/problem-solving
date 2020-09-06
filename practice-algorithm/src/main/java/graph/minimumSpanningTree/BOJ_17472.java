@@ -61,13 +61,13 @@ public class BOJ_17472 {
                 int len = 0;
 
                 // 가장자리에 있는 땅이 아니라면 넘어간다.
-                if (map[nx][ny] == map[node.x][node.y]) continue;
+//                if (map[nx][ny] == map[node.x][node.y]) continue;
 
                 // 다리는 한 방향으로만 계속 되어야 한다.
-                while (nx >= 0 && nx < N && ny >= 0 && ny < M) {
+                while (nx >= 0 && nx < N && ny >= 0 && ny < M && map[nx][ny] != map[node.x][node.y]) {
                     if (map[nx][ny] != 0) {
                         pq.add(new Node(map[node.x][node.y], map[nx][ny], len));
-                        return;
+                        break;
                     }
                     nx += dx[i];
                     ny += dy[i];
@@ -102,7 +102,8 @@ public class BOJ_17472 {
             int nx = x + dx[i];
             int ny = y + dy[i];
             if (nx >= 0 && nx < N && ny >= 0 && ny < M) {
-                dfs(nx, ny, islandNum);
+                if (map[nx][ny] == -1)
+                    dfs(nx, ny, islandNum);
             }
         }
     }
@@ -128,7 +129,7 @@ public class BOJ_17472 {
     }
 
     private static int find(int x) {
-        if (parent[x] == x) return x;
+        if (parent[x] < 0) return x;
         return parent[x] = find(parent[x]);
     }
 
