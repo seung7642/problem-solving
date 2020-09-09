@@ -97,7 +97,8 @@ public class BOJ_1944 {
             visit[robot.node] = true;
             dis += robot.distance;
 
-            if (++cnt == M + 1) return true;
+            if (cnt++ == M) // MST에서 간선의 수는 (정점의 수 - 1)이다. 여기서 정점은 로봇과 열쇠
+                return true;
 
             // 정점과 연결된 모든 정점을 순회
             for (Robot next : graph.get(robot.node))
