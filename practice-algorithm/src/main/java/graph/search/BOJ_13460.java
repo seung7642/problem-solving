@@ -8,7 +8,6 @@ import java.util.StringTokenizer;
 
 public class BOJ_13460 {
 
-    public static final int RED = 0, BLUE = 1;
     public static int N, M;
     public static char[][] map;
     public static boolean[][][][] visited;
