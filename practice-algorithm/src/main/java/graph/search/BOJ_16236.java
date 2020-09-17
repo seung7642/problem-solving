@@ -41,9 +41,9 @@ public class BOJ_16236 {
 
         while (true) {
             init_check();
-            bfs(shark_x, shark_y);
+            bfs(shark_x, shark_y); // 1. 완전 탐색으로 먹을 수 있는 물고기를 찾는다.
 
-            if (min_x != max_int && min_y != max_int) {
+            if (min_x != max_int && min_y != max_int) { // 먹을 수 있는 물고기를 찾은 경우
                 result += check[min_x][min_y];
                 eat_cnt++;
 
@@ -56,7 +56,7 @@ public class BOJ_16236 {
 
                 shark_x = min_x;
                 shark_y = min_y;
-            } else {
+            } else { // 더이상 먹을 수 있는 물고기가 없는 경우
                 break;
             }
         }
@@ -79,7 +79,7 @@ public class BOJ_16236 {
 
     private static void bfs(int x, int y) {
         Queue<info> q = new LinkedList<>();
-        check[x][y] = 0;
+        check[x][y] = 0; // 아기 상어의 처음 위치에서의 시간은 0
         q.add(new info(x, y));
 
         while (!q.isEmpty()) {
@@ -94,25 +94,25 @@ public class BOJ_16236 {
 
                 check[nx][ny] = check[cur.x][cur.y] + 1;
 
-                if (board[nx][ny] != 0 && board[nx][ny] < shark_size) {
-                    if (min_dist > check[nx][ny]) {
+                if (board[nx][ny] != 0 && board[nx][ny] < shark_size) { // 먹을 수 있는 물고기인 경우
+                    if (min_dist > check[nx][ny]) { // 현재 물고기까지의 이동 시간이 더 짧은 경우
                         min_x = nx;
                         min_y = ny;
                         min_dist = check[nx][ny];
-                    } else if (min_dist == check[nx][ny]) {
+                    } else if (min_dist == check[nx][ny]) { // 현재 물고기까지의 이동 시간이 같다면, 1) 가장 위쪽, 가장 왼쪽을 찾는다.
                         if (min_x == nx) {
                             if (min_y > ny) {
                                 min_x = nx;
                                 min_y = ny;
                             }
-                        } else if(min_x > nx) {
+                        } else if (min_x > nx) {
                             min_x = nx;
                             min_y = ny;
                         }
                     }
                 }
 
-                q.add(new info(nx, ny));
+                q.add(new info(nx, ny)); // 물고기의 위치를 큐에 담는다.
             }
         }
     }
