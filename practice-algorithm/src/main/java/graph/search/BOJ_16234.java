@@ -10,12 +10,11 @@ import java.util.StringTokenizer;
 public class BOJ_16234 {
 
     private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    private static int N, L, R, cnt, ans;
+    private static int N, L, R, ans;
     private static int[][] map;
     private static boolean[][] visited;
     private static int[] dx = {-1, 1, 0, 0};
     private static int[] dy = {0, 0, 1, -1};
-    private static int[] sum;
 
     private static class Node {
         int x, y;
@@ -41,7 +40,6 @@ public class BOJ_16234 {
         }
 
         while (true) {
-            cnt = 0;
             visited = new boolean[N][N];
             if(!setArea()) break;
             ans++;
