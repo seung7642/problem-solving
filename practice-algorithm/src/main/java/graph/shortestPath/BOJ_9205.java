@@ -66,9 +66,9 @@ public class BOJ_9205 {
     }
 
     private static void floydWarshall() {
-        for (int k = 0; k < N + 2; k++) {
-            for (int i = 0; i < N + 2; i++) {
-                for (int j = 0; j < N + 2; j++) {
+        for (int k = 0; k < N + 2; k++) { // 거쳐가는 정점
+            for (int i = 0; i < N + 2; i++) { // 출발지 정점
+                for (int j = 0; j < N + 2; j++) { // 목적지 정점
                     if (arr[i][j] > arr[i][k] + arr[k][j])
                         arr[i][j] = arr[i][k] + arr[k][j];
                 }
