@@ -11,6 +11,7 @@ public class BOJ_2610 {
     private static int N, M, groupNumber;
     private static int[][] dist;
     private static int[] check;
+    private static PriorityQueue<Integer> representation = new PriorityQueue<>();
 
     public static void main(String[] args) throws IOException {
         N = Integer.parseInt(br.readLine());
@@ -36,16 +37,11 @@ public class BOJ_2610 {
             dfs(i);
         }
 
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
         for (int i = 1; i <= groupNumber; i++) {
-            pq.add(getGroupRepresentation(i));
+            representation.add(getGroupRepresentation(i));
         }
 
-        System.out.println(groupNumber);
-        while (!pq.isEmpty()) {
-            System.out.println(pq.poll());
-        }
-
+        print();
         br.close();
     }
 
@@ -85,6 +81,13 @@ public class BOJ_2610 {
         for (int i = 1; i <= N; i++) {
             if (dist[start][i] == 0 || dist[start][i] == INF) continue;
             dfs(i);
+        }
+    }
+
+    private static void print() {
+        System.out.println(groupNumber);
+        while (!representation.isEmpty()) {
+            System.out.println(representation.poll());
         }
     }
 
