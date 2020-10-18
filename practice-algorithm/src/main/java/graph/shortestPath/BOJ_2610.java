@@ -8,9 +8,8 @@ public class BOJ_2610 {
     private static final int INF = 1000000000;
 
     private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    private static int[][] dist;
     private static int N, M, groupNumber;
-    private static List<List<Integer>> com;
+    private static int[][] dist;
     private static int[] check;
 
     public static void main(String[] args) throws IOException {
@@ -19,9 +18,6 @@ public class BOJ_2610 {
 
         check = new int[N + 1];
         dist = new int[N + 1][N + 1];
-        com = new ArrayList<>();
-        for (int i = 1; i <= N; i++)
-            com.add(new ArrayList<>());
 
         init();
 
@@ -54,21 +50,18 @@ public class BOJ_2610 {
     }
 
     private static int getGroupRepresentation(int groupNumber) {
-        List<Integer> groupMember = com.get(groupNumber);
-        int min_sum = 100007, sum, representation = groupMember.get(0);
+        int min_sum = 100007, sum, representation = 0;
 
-        for (int i = 0; i < groupMember.size(); i++) {
+        for (int i = 1; i <= N; i++) {
+            if (check[i] != groupNumber) continue;
             sum = 0;
-            int x = groupMember.get(i);
-
-            for (int j = 0; j < groupMember.size(); j++) {
-                int y = groupMember.get(j);
-                if (dist[x][y] == INF) continue;
-                sum = Math.max(sum, dist[x][y]);
+            for (int j = 1; j <= N; j++) {
+                if (dist[i][j] == INF) continue;
+                sum = Math.max(sum, dist[i][j]);
             }
             if (min_sum > sum) {
                 min_sum = sum;
-                representation = x;
+                representation = i;
             }
         }
         return representation;
@@ -88,7 +81,6 @@ public class BOJ_2610 {
     private static void dfs(int start) {
         if (check[start] != 0) return;
         check[start] = groupNumber;
-        com.get(groupNumber).add(start);
 
         for (int i = 1; i <= N; i++) {
             if (dist[start][i] == 0 || dist[start][i] == INF) continue;
