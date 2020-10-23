@@ -7,10 +7,12 @@ import java.util.PriorityQueue;
 
 public class BOJ_2665 {
 
+    private static final int INF = 1000000000;
+
     private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     private static int N;
     private static int[][] map;
-    private static boolean[][] visited;
+    private static int[][] check;
     private static int[] dx = {-1, 1, 0, 0};
     private static int[] dy = {0, 0, 1, -1};
 
@@ -39,6 +41,7 @@ public class BOJ_2665 {
             String str = br.readLine();
             for (int j = 0; j < N; j++) {
                 map[i][j] = Character.getNumericValue(str.charAt(j));
+                check[i][j] = INF;
             }
         }
 
@@ -49,6 +52,7 @@ public class BOJ_2665 {
     private static int bfs(int x, int y) {
         PriorityQueue<Node> pq = new PriorityQueue<>();
         pq.add(new Node(x, y, 0));
+        check[y][x] = 0;
 
         while (!pq.isEmpty()) {
             Node cur = pq.poll();
@@ -60,13 +64,17 @@ public class BOJ_2665 {
                 int ny = cur.y + dy[i];
 
                 if (nx < 0 || nx >= N || ny < 0 || ny >= N) continue;
-                if (visited[ny][nx]) continue;
-                visited[ny][nx] = true;
 
                 if (map[ny][nx] == 0) { // 검은 방
-                    pq.add(new Node(nx, ny, cur.cnt + 1));
+                    if (check[ny][nx] > check[cur.y][cur.x] + 1) {
+                        check[ny][nx] = check[cur.y][cur.x] + 1;
+                        pq.add(new Node(nx, ny, cur.cnt + 1));
+                    }
                 } else {
-                    pq.add(new Node(nx, ny, cur.cnt));
+                    if (check[ny][nx] > check[cur.y][cur.x]) {
+                        check[ny][nx] = check[cur.y][cur.x];
+                        pq.add(new Node(nx, ny, cur.cnt));
+                    }
                 }
             }
         }
@@ -75,6 +83,6 @@ public class BOJ_2665 {
 
     private static void init() {
         map = new int[N][N];
-        visited = new boolean[N][N];
+        check = new int[N][N];
     }
 }
