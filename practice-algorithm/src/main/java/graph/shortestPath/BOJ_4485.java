@@ -58,7 +58,7 @@ public class BOJ_4485 {
     private static void dijkstra(int x, int y) {
         PriorityQueue<Node> pq = new PriorityQueue<>();
         pq.add(new Node(x, y, map[y][x]));
-        dist[y][x] = 0;
+        dist[y][x] = map[y][x];
 
         while (!pq.isEmpty()) {
             Node cur = pq.poll();
@@ -69,8 +69,8 @@ public class BOJ_4485 {
 
                 if (nx < 0 || nx >= N || ny < 0 || ny >= N) continue;
 
-                if (dist[ny][nx] > cur.distance + map[ny][nx]) {
-                    dist[ny][nx] = cur.distance + map[ny][nx];
+                if (dist[ny][nx] > dist[cur.y][cur.x] + map[ny][nx]) {
+                    dist[ny][nx] = dist[cur.y][cur.x] + map[ny][nx];
                     pq.add(new Node(nx, ny, dist[ny][nx]));
                 }
             }
