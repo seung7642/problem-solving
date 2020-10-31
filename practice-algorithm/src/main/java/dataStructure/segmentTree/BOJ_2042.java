@@ -48,9 +48,9 @@ public class BOJ_2042 {
             long c = Long.parseLong(st.nextToken());
 
             if (a == 1) { // b번 째 수를 c로 수정한다.
-                long dif = c - arr[b];
+                long diff = c - arr[b]; // 기존의 값과 변경할 값의 차이
                 arr[b] = c;
-                update(1, N, 1, b, dif);
+                update(1, N, 1, b, diff);
             } else if (a == 2) { // b번째 수부터 c번째 수까지의 합을 출력한다.
                 sb.append(sum(1, N, 1, b, (int) c)).append("\n");
             }
@@ -60,8 +60,7 @@ public class BOJ_2042 {
         br.close();
     }
 
-    // start: 시작 인덱스, end: 끝 인덱스
-    // start-end 구간의 합을 tree[node]에 저장한다.
+    // node가 담당하고 있는 구간 : [start, end]
     private static long init(int start, int end, int node) {
         if (start == end) { // 시작과 끝이 같다는건 리프 노드라는 의미.
             return tree[node] = arr[start];
@@ -73,38 +72,38 @@ public class BOJ_2042 {
         return tree[node] = init(start, mid, node * 2) + init(mid + 1, end, node * 2 + 1);
     }
 
-    // start: 시작 인덱스, end: 끝 인덱스
-    // left, right: 구하고자하는 구간 합의 범위
+    // node가 담당하고 있는 구간 : [start, end]
+    // [left, right]: 합을 구해야하는 구간
     private static long sum(int start, int end, int node, int left, int right) {
-        if (left > end || right < start) { // 범위 밖에 있는 경우
+        // 구하고자하는 합의 구간이 해당 노드가 가지는 합의 범위를 완전히 벗어난다면, 더이상 탐색할 필요가 없다.
+        if (left > end || right < start) {
             return 0;
         }
 
-        if (left <= start && end <= right) { // 범위 안에 있는 경우
+        // 해당 노드가 가지는 합의 범위가 구하고자하는 합의 범위에 포함된다면, 더이상의 탐색이 무의미하다.
+        if (left <= start && end <= right) {
             return tree[node];
         }
 
-        // 그렇지 않다면, 두 부분으로 나누어 합을 구한다.
+        // 자식 노드로 범위를 좁혀가며 탐색을 진행한다.
         int mid = (start + end) / 2;
         return sum(start, mid, node * 2, left, right) + sum(mid + 1, end, node * 2 + 1, left, right);
     }
 
-    // start: 시작 인덱스, end: 끝 인덱스
     // idx: 구간 합을 수정하고자 하는 노드
-    // dif: 수정할 값
-    private static void update(int start, int end, int node, int idx, long dif) {
-        if (idx < start || idx > end) { // 범위 밖에 있는 경우
+    // diff: 수정할 값
+    private static void update(int start, int end, int node, int idx, long diff) {
+        // 변경하고자하는 인덱스가 해당 노드의 범위에 포함되지 않는다면 더이상 탐색이 필요없다.
+        if (idx < start || idx > end) {
             return;
         }
 
         // 범위 안에 있으면 내려가며 다른 원소도 갱신
-        tree[node] += dif;
-        if (start == end) {
-            return;
+        tree[node] += diff;
+        if (start != end) {
+            int mid = (start + end) / 2;
+            update(start, mid, node * 2, idx, diff);
+            update(mid + 1, end, node * 2 + 1, idx, diff);
         }
-
-        int mid = (start + end) / 2;
-        update(start, mid, node * 2, idx, dif);
-        update(mid + 1, end, node * 2 + 1, idx, dif);
     }
 }
