@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+// 히스토그램
 public class BOJ_1725 {
 
     private static final int INF = 2_000_000_001;
