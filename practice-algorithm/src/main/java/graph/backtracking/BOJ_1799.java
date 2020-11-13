@@ -45,7 +45,7 @@ public class BOJ_1799 {
             int y = i / N;
 
             if (colors[y][x] != color || map[y][x] == 0 || !isSettable(x, y)) continue;
-            visited[y][x] = true;
+            visited[y][x] = true; // 비숍을 놓은 자리에 방문 처리.
             dfs(i, color, cnt + 1);
             visited[y][x] = false;
         }
