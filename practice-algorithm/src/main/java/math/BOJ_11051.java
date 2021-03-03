@@ -13,20 +13,19 @@ public class BOJ_11051 {
 
             int N = input[0];
             int K = input[1];
+            int[][] dp = new int[N + 1][N + 1];
 
-            int[][] triangle = new int[N + 1][N + 1];
-
-            for (int i = 0; i < triangle.length; i++) {
+            for (int i = 0; i < dp.length; i++) {
                 for (int j = 0; j <= i; j++) {
                     if (i == j || j == 0) {
-                        triangle[i][j] = 1;
+                        dp[i][j] = 1;
                     } else {
-                        triangle[i][j] = (triangle[i - 1][j - 1] + triangle[i - 1][j]) % 10007;
+                        dp[i][j] = (dp[i - 1][j - 1] + dp[i - 1][j]) % 10007;
                     }
                 }
             }
 
-            System.out.println(triangle[N][K]);
+            System.out.println(dp[N][K]);
         } catch (Exception ex) {
             ex.getMessage();
         }
