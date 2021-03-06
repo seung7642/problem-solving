@@ -17,9 +17,9 @@ public class BOJ_14476 {
                     .mapToLong(Long::parseLong)
                     .toArray();
 
-            int firstIdx = getIdx(N);
-            init(firstIdx, N);
-            solve(firstIdx, N);
+            int firstLeafNodeIdx = getFirstLeafNodeIdx(N);
+            init(firstLeafNodeIdx, N);
+            solve(firstLeafNodeIdx, N);
         } catch (Exception ex) {
             ex.getMessage();
         }
@@ -61,7 +61,7 @@ public class BOJ_14476 {
     }
 
     // 배열에서 리프 노드가 저장될 첫 번째 인덱스를 반환한다.
-    private static int getIdx(long n) {
+    private static int getFirstLeafNodeIdx(long n) {
         int ret = 1;
         while (ret < n) {
             ret *= 2;
@@ -70,14 +70,14 @@ public class BOJ_14476 {
     }
 
     // i~j 구간의 최대공약수를 구한다.
-    private static void init(int firstIdx, int n) {
+    private static void init(int firstLeafNodeIdx, int n) {
         // 리프 노드 (원소를 저장)
-        for (int i = firstIdx; i < firstIdx + n; i++) {
-            segmentTree[i] = arr[i - firstIdx];
+        for (int i = firstLeafNodeIdx; i < firstLeafNodeIdx + n; i++) {
+            segmentTree[i] = arr[i - firstLeafNodeIdx];
         }
 
         // 리프 노드가 아닌 노드 (구간에 대한 연산값을 저장)
-        for (int i = firstIdx - 1; i >= 1; i--) {
+        for (int i = firstLeafNodeIdx - 1; i >= 1; i--) {
             segmentTree[i] = gcd(segmentTree[i * 2], segmentTree[i * 2 + 1]);
         }
     }
