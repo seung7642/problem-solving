@@ -2,6 +2,7 @@ package divideAndConquer;
 
 import java.util.Scanner;
 
+// a ~ b 번째 피보나치 수의 구간 합.
 public class BOJ_2086 {
 
     private static final long MOD = 1_000_000_000;
