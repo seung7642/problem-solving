@@ -22,7 +22,7 @@ public class BOJ_14725 {
         // 새로운 문자열을 트라이에 추가한다.
         // k: 먹이 정보 갯수 (문자열 갯수)
         public void add(int idx, String[] arr) {
-            boolean isNotExist = true; // 추가하려는 문자열이 이미 있다면 true.
+            boolean isNotExist = true; // 추가하려는 문자열이 이미 있는지 체크한다.
 
             // 추가하려는 문자열이 트라이에 이미 있는지 확인한다.
             // 있다면 자식 노드에서 남은 문자열에 대해 다시 add() 실행한다.
