@@ -42,21 +42,6 @@ public class BOJ_4358 {
             return child[wordIdx].find(idx + 1, str);
         }
 
-        private boolean plusCount(int idx, String str) {
-            if (idx >= str.length()) return false; // 유효성 검사
-
-            int wordIdx = (int) str.charAt(idx) - 32; // 해당 문자에 대응되는 아스키코드 값.
-            if (child[wordIdx] == null) return false;
-            if (idx == (str.length() - 1)) {
-                if (child[wordIdx].isFinish) {
-                    child[wordIdx].cnt++;
-                    return true;
-                }
-                return false;
-            }
-            return child[wordIdx].plusCount(idx + 1, str);
-        }
-
         private int getStringCnt(int idx, String str) {
             if (idx >= str.length()) return -1; // 유효성 검사
 
@@ -81,10 +66,8 @@ public class BOJ_4358 {
                 totalCnt++;
                 if (!trie.find(0, str)) {
                     list.add(str);
-                    trie.insert(0, str);
-                } else {
-                    trie.plusCount(0, str);
                 }
+                trie.insert(0, str);
             }
 
             StringBuilder sb = new StringBuilder();
