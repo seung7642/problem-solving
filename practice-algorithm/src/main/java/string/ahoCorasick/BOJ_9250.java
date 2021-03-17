@@ -42,12 +42,12 @@ public class BOJ_9250 {
         trie.root.fail = trie.root; // root 회귀
         q.add(trie.root);
 
-        // BFS 탐색
+        // 트리에 담긴 문자열에 대해 접두사-접미사가 동일한 것을 뽑아내야 한다. (BFS 이용)
         while (!q.isEmpty()) {
             TrieNode currentNode = q.poll();
 
-            for (int idx = 0; idx < size; idx++) {
-                TrieNode nextNode = currentNode.child[idx];
+            for (int i = 0; i < size; i++) {
+                TrieNode nextNode = currentNode.child[i];
 
                 if (nextNode == null) continue;
 
@@ -56,12 +56,13 @@ public class BOJ_9250 {
                 } else {
                     TrieNode failure = currentNode.fail;
 
-                    while (!failure.isRoot && failure.child[idx] == null) {
+                    while (!failure.isRoot && failure.child[i] == null) {
                         failure = failure.fail;
                     }
-                    if (failure.child[idx] != null) {
-                        failure = failure.child[idx];
+                    if (failure.child[i] != null) {
+                        failure = failure.child[i];
                     }
+
                     nextNode.fail = failure;
                 }
 
