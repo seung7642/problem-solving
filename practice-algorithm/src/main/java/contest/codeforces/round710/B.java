@@ -1,4 +1,4 @@
-package programmingCompetition.codeforces.round710;
+package contest.codeforces.round710;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
