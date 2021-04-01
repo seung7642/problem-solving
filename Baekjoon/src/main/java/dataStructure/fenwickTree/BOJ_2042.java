@@ -1,4 +1,4 @@
-package dataStructure.FenwickTree;
+package dataStructure.fenwickTree;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
