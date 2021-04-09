@@ -30,33 +30,34 @@ public class BOJ_1890 {
     }
 
     public static boolean dfs(int x, int y) {
-        if (x == N && y == N) {
-            cache[N][N] = 1;
-            return true;
+        if (map[y][x] == 0) {
+            if (x == N && y == N) {
+                cache[N][N] = 1;
+                return true;
+            }
+            return false;
         }
 
-        if (map[y][x] == 0) return false;
-
-        boolean result = false;
+        boolean isSearchFinish = false; // 해당 노드를 기준으로 오른쪽, 아래쪽의 탐색을 마쳤는지 체크.
         for (int i = 0; i < dx.length; i++) {
             int nx = (dx[i] == 0 ? x : x + map[y][x]);
             int ny = (dy[i] == 0 ? y : y + map[y][x]);
 
             if (!isValidRange(nx, ny)) continue;
 
-            // 기존에 방문체크 -> 이미 다음 지점에서 목적지까지 이동한 경우가 있으면 
+            // 다음 지점에서 이미 탐색이 진행되었다면
             if (cache[ny][nx] > 0) {
                 cache[y][x] += cache[ny][nx]; // 현재 지점에서 도착지까지 이동할 수 있는 경우의 수 추가하기
-                result = true;
+                isSearchFinish = true;
                 continue;
             }
 
             if (dfs(nx, ny)) {
                 cache[y][x] += cache[ny][nx];
-                result = true;
+                isSearchFinish = true;
             }
         }
-        return result;
+        return isSearchFinish;
     }
 
     private static boolean isValidRange(int x, int y) {
