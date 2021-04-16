@@ -22,7 +22,8 @@ public class BOJ_5557 {
             }
         }
 
-        System.out.println(recursive(arr[0], 0));
+        long result = recursive(arr[0], 0);
+        System.out.println(result);
     }
 
     private static long recursive(int sum, int idx) {
