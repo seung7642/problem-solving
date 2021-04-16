@@ -10,17 +10,17 @@ public class BOJ_9625 {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         K = Integer.parseInt(br.readLine());
-        int[] aArr = new int[45];
-        int[] bArr = new int[45];
-        aArr[0] = 0;
-        aArr[1] = 1;
-        bArr[0] = 1;
+        int[] aArr = new int[46];
+        int[] bArr = new int[46];
+        aArr[0] = 1;
+        aArr[1] = 0;
+        bArr[0] = 0;
         bArr[1] = 1;
-        for (int i = 2; i < 45; i++) {
+        for (int i = 2; i < 46; i++) {
             aArr[i] = aArr[i - 1] + aArr[i - 2];
             bArr[i] = bArr[i - 1] + bArr[i - 2];
         }
 
-        System.out.println(aArr[K - 1] + " " + bArr[K - 1]);
+        System.out.println(aArr[K] + " " + bArr[K]);
     }
 }
