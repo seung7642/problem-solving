@@ -11,7 +11,6 @@ public class SWEA_2817 {
     private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     private static int T, N, K, cnt;
     private static int[] arr;
-    private static boolean[] visited;
     private static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) throws IOException {
@@ -21,7 +20,6 @@ public class SWEA_2817 {
             N = Integer.parseInt(st.nextToken());
             K = Integer.parseInt(st.nextToken());
             arr = new int[N];
-            visited = new boolean[N];
 
             st = new StringTokenizer(br.readLine());
             for (int i = 0; i < N; i++) {
@@ -41,10 +39,7 @@ public class SWEA_2817 {
             return;
         }
 
-        if (visited[depth]) return;
-        visited[depth] = true;
         backtracking(sum + arr[depth], depth + 1);
         backtracking(sum, depth + 1);
-        visited[depth] = false;
     }
 }
