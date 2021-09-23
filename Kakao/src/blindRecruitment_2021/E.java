@@ -17,34 +17,34 @@ public class E {
     }
 
     public static String solution(String play_time, String adv_time, String[] logs) {
-        int playTime = timeToSecond(play_time);
-        int advTime = timeToSecond(adv_time);
-        long[] playCnt = new long[playTime + 1];
+        int playTimeSecond = timeToSecond(play_time);
+        int advTimeSecond = timeToSecond(adv_time);
+        long[] prefixSum = new long[playTimeSecond + 1];
         for (String log : logs) {
-            String[] split = log.split("-");
-            playCnt[timeToSecond(split[0])]++;
-            playCnt[timeToSecond(split[1])]--;
+            String[] str = log.split("-");
+            prefixSum[timeToSecond(str[0])]++;
+            prefixSum[timeToSecond(str[1])]--;
         }
-        for (int i = 1; i <= playTime; i++) playCnt[i] += playCnt[i - 1]; // 현재 동영상을 시청하고 있는 사람의 수를 구간에 저장한다.
-        for (int i = 1; i <= playTime; i++) playCnt[i] += playCnt[i - 1]; // 현재 시간까지 동영상을 시청한 총 재생시간을 누적한다.
+        for (int i = 1; i <= playTimeSecond; i++) prefixSum[i] += prefixSum[i - 1]; // 현재 동영상을 시청하고 있는 사람의 수를 구간에 저장한다.
+        for (int i = 1; i <= playTimeSecond; i++) prefixSum[i] += prefixSum[i - 1]; // 현재 시간까지 동영상을 시청한 총 재생시간을 누적한다.
 
-        long maxTime = playCnt[advTime - 1];
-        long maxStartTime = 0;
-        for (int i = 0; i + advTime <= playTime; i++) {
-            long tmp = playCnt[i + advTime] - playCnt[i];
-            if (tmp > maxTime) {
-                maxTime = tmp;
-                maxStartTime = i + 1;
+        long maxTimeSecond = prefixSum[advTimeSecond - 1];
+        long startTimeSecond = 0L;
+        for (int i = 1; i + advTimeSecond - 1 <= playTimeSecond; i++) {
+            long arangeSum = prefixSum[i + advTimeSecond - 1] - prefixSum[i - 1];
+            if (maxTimeSecond < arangeSum) {
+                maxTimeSecond = arangeSum;
+                startTimeSecond = i;
             }
         }
-        long hour = maxStartTime / (60 * 60);
-        long minute = (maxStartTime / 60) % 60;
-        long second = maxStartTime % 60;
+        long hour = startTimeSecond / (60 * 60);
+        long minute = (startTimeSecond / 60) % 60;
+        long second = startTimeSecond % 60;
         return String.format("%02d:%02d:%02d", hour, minute, second);
     }
 
     private static int timeToSecond(String time) {
-        int[] parse = Arrays.stream(time.split(":")).mapToInt(Integer::parseInt).toArray();
-        return parse[0] * 60 * 60 + parse[1] * 60 + parse[2];
+        int[] t = Arrays.stream(time.split(":")).mapToInt(Integer::parseInt).toArray();
+        return t[0] * 60 * 60 + t[1] * 60 + t[2];
     }
 }
