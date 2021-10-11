@@ -3,53 +3,60 @@ package blindRecruitment_2020;
 public class A {
 
     public static void main(String[] args) {
-        String s = "abcabcabcabcdededededede";
-        int result = solution(s); // 답: 14
-        System.out.println(result);
+        String s;
+        int result;
 
-        s = "xababcdcdababcdcd";
-        result = solution(s); // 답: 17
-        System.out.println(result);
+        s = "aabbaccc";
+        result = solution(s);
+        System.out.println(result); // 답: 7
+
+        s = "ababcdcdababcdcd";
+        result = solution(s);
+        System.out.println(result); // 답: 9
+
+        s = "abcabcdede";
+        result = solution(s);
+        System.out.println(result); // 답: 8
     }
 
-    private static int len;
+    private static int N;
 
     public static int solution(String s) {
-        len = s.length();
-        int min = len;
-        for (int i = 1; i <= len / 2; i++) {
-            int compressLen = compress(s, i).length();
-            min = Math.min(min, compressLen);
+        N = s.length();
+        int ans = s.length();
+        for (int i = 1; i <= N / 2; i++) {
+            ans = Math.min(ans, compress(s, i));
         }
-        return min;
+        return ans;
     }
 
-    private static String compress(String s, int k) {
-        StringBuilder compressStr = new StringBuilder();
-        String pattern = "";
-        String nowStr = "";
+    private static int compress(String s, int k) {
+        StringBuffer sb = new StringBuffer();
+        String prev = s.substring(0, k), cur = "";
         int cnt = 1;
-        for (int i = 0; i <= len + k; i += k) {
-            if (i >= len) {
-                nowStr = "";
-            } else if (i + k > len) {
-                nowStr = s.substring(i);
-            } else {
-                nowStr = s.substring(i, i + k);
+        for (int i = k; i < N; i += k) {
+            if (i + k < N) {
+                cur = s.substring(i, i + k);
+            } else if (i + k >= N) {
+                cur = s.substring(i);
+                if (prev.equals(cur)) {
+                    sb.append(++cnt).append(prev);
+                } else {
+                    if (cnt >= 2) sb.append(cnt);
+                    sb.append(prev).append(cur);
+                }
+                break;
             }
 
-            if (i != 0) {
-                if (nowStr.equals(pattern)) {
-                    cnt++;
-                } else if (cnt >= 2) {
-                    compressStr.append(cnt).append(pattern);
-                    cnt = 1;
-                } else {
-                    compressStr.append(pattern);
-                }
+            if (prev.equals(cur)) {
+                cnt++;
+            } else {
+                if (cnt >= 2) sb.append(cnt);
+                sb.append(prev);
+                prev = cur;
+                cnt = 1;
             }
-            pattern = nowStr;
         }
-        return compressStr.toString();
+        return sb.length();
     }
 }
