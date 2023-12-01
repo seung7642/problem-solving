@@ -4,8 +4,8 @@
 
 ## 1. 이용한 온라인 저지 사이트
 
-- 백준 (https://www.acmicpc.net/)
-- 프로그래머스 (https://programmers.co.kr/)
+- Baekjoon (https://www.acmicpc.net/)
+- Programmers (https://programmers.co.kr/)
 - SW Expert Academy (https://swexpertacademy.com/)
 - Codeforces (https://codeforces.com/)
 - LeetCode (https://leetcode.com/)
