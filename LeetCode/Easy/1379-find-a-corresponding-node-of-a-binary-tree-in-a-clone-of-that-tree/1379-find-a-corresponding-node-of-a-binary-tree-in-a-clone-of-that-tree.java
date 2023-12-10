@@ -21,7 +21,7 @@ class Solution {
     private void inorder(TreeNode o, TreeNode c) {
         if (o != null) {
             inorder(o.left, c.left);
-            if (o == target) {
+            if (o.val == target.val) {
                 ans = c;
             }
             inorder(o.right, c.right);
