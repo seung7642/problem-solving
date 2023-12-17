@@ -25,27 +25,39 @@
  */
 class Solution {
     
-    private List<Integer> list = new ArrayList<>();
+    private ListNode findMiddleElement(ListNode head) {
+        // The pointer used to disconnect the left half from the mid node.
+        ListNode prevPtr = null;
+        ListNode slowPtr = head;
+        ListNode fastPtr = head;
+        
+        // Iterate until fastPtr doesn't reach the end of the linked list.
+        while (fastPtr != null && fastPtr.next != null) {
+            prevPtr = slowPtr;
+            slowPtr = slowPtr.next;
+            fastPtr = fastPtr.next.next;
+        }
+        
+        // Handling the case when slowPtr was equal to head. 
+        if (prevPtr != null) {
+            prevPtr.next = null;
+        }
+        return slowPtr;
+    }
     
     public TreeNode sortedListToBST(ListNode head) {
         if (head == null) {
             return null;
         }
-        do {
-            list.add(head.val);
-        } while ((head = head.next) != null);
         
-        return makeBinarySearchTree(0, list.size() - 1);
-    }
-    
-    public TreeNode makeBinarySearchTree(int left, int right) {
-        if (left > right) {
-            return null;
+        ListNode mid = this.findMiddleElement(head);
+        TreeNode node = new TreeNode(mid.val);
+        if (head == mid) {
+            return node;
         }
-        int mid = (left + right) / 2;
-        TreeNode root = new TreeNode(list.get(mid));
-        root.left = makeBinarySearchTree(left, mid - 1);
-        root.right = makeBinarySearchTree(mid + 1, right);
-        return root;
+        
+        node.left = this.sortedListToBST(head);
+        node.right = this.sortedListToBST(mid.next);
+        return node;
     }
 }
