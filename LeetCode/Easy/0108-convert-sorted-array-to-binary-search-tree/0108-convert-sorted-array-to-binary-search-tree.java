@@ -32,6 +32,18 @@ class Solution {
     
     public TreeNode sortedArrayToBST(int[] nums) {
         this.nums = nums;
-        return helper(0, nums.length - 1);
+        return makeBinarySearchTree(0, nums.length - 1);
+    }
+    
+    public TreeNode makeBinarySearchTree(int left, int right) {
+        if (left > right) {
+            return null;
+        }
+        int mid = (left + right) / 2;
+        
+        TreeNode root = new TreeNode(nums[mid]);
+        root.left = makeBinarySearchTree(left, mid - 1);
+        root.right = makeBinarySearchTree(mid + 1, right);
+        return root;
     }
 }
