@@ -19,23 +19,18 @@ class Solution {
     }
     
     private TreeNode traverse(TreeNode root1, TreeNode root2) {
-        if (root1 == null && root2 == null) {
-            return null;
+        if (root1 == null) {
+            return root2;
+        }
+        if (root2 == null) {
+            return root1;
         }
         
-        int value = (root1 == null ? 0 : root1.val) + (root2 == null ? 0 : root2.val);
+        int value = root1.val + root2.val;
         TreeNode root = new TreeNode(value);
         
-        if (root1 == null) {
-            root.left = root2.left;
-            root.right = root2.right;
-        } else if (root2 == null) {
-            root.left = root1.left;
-            root.right = root1.right;
-        } else {
-            root.left = traverse(root1.left, root2.left);
-            root.right = traverse(root1.right, root2.right);    
-        }
+        root.left = traverse(root1.left, root2.left);
+        root.right = traverse(root1.right, root2.right);    
         
         return root;
     }
