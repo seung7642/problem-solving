@@ -25,8 +25,18 @@ class Solution {
         
         int value = (root1 == null ? 0 : root1.val) + (root2 == null ? 0 : root2.val);
         TreeNode root = new TreeNode(value);
-        root.left = traverse(root1 == null ? null : root1.left, root2 == null ? null : root2.left);
-        root.right = traverse(root1 == null ? null : root1.right, root2 == null ? null : root2.right);
+        
+        if (root1 == null) {
+            root.left = root2.left;
+            root.right = root2.right;
+        } else if (root2 == null) {
+            root.left = root1.left;
+            root.right = root1.right;
+        } else {
+            root.left = traverse(root1.left, root2.left);
+            root.right = traverse(root1.right, root2.right);    
+        }
+        
         return root;
     }
 }
