@@ -15,25 +15,18 @@
  */
 class Solution {
     
-    private boolean result = false;
-    
     public boolean hasPathSum(TreeNode root, int targetSum) {
-        traverse(root, targetSum, 0);
-        return result;
+        return traverse(root, targetSum, 0);
     }
     
-    private void traverse(TreeNode root, int targetSum, int sum) {
-        if (root == null || result) {
-            return;
+    private boolean traverse(TreeNode root, int targetSum, int sum) {
+        if (root == null) {
+            return false;
         }
         if (root.left == null && root.right == null) {
-            if (targetSum == (sum + root.val)) {
-                result = true;
-            }
-            return;
+            return targetSum == (sum + root.val);
         }
         
-        traverse(root.left, targetSum, sum + root.val);
-        traverse(root.right, targetSum, sum + root.val);
+        return traverse(root.left, targetSum, sum + root.val) || traverse(root.right, targetSum, sum + root.val);
     }
 }
