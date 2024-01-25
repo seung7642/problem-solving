@@ -2,45 +2,42 @@ class Solution {
     public boolean isValidSudoku(char[][] board) {
         int N = 9; 
         
-        // Use hash set to record the status 
-        Set<Character>[] rows = new HashSet[N];
-        Set<Character>[] cols = new HashSet[N];
-        Set<Character>[] boxes = new HashSet[N];
-        for (int r = 0; r < N; r++) {
-            rows[r] = new HashSet<>();
-            cols[r] = new HashSet<>();
-            boxes[r] = new HashSet<>();
-        }
+        // Use a binary number to record previous occurrence 
+        int[] rows = new int[N];
+        int[] cols = new int[N];
+        int[] boxes = new int[N];
         
         for (int r = 0; r < N; r++) {
             for (int c = 0; c < N; c++) {
-                char val = board[r][c];                
-                
-                // Check if the position is filled with number 
-                if (val == '.') {
+                // Check if the position is filled with number
+                if (board[r][c] == '.') {
                     continue;
                 }
                 
-                // Check the row 
-                if (rows[r].contains(val)) {
-                    return false;
-                }
-                rows[r].add(val);
+                int val = board[r][c] - '0';
+                int pos = 1 << (val - 1);
                 
-                // Check the column
-                if (cols[c].contains(val)) {
+                // Check the row
+                if ((rows[r] & pos) > 0) {
                     return false;
                 }
-                cols[c].add(val);
+                rows[r] = rows[r] | pos;
+                
+                // Check the col
+                if ((cols[c] & pos) > 0) {
+                    return false;
+                }
+                cols[c] = cols[c] | pos;
                 
                 // Check the box
                 int idx = (r / 3) * 3 + c / 3;
-                if (boxes[idx].contains(val)) {
+                if ((boxes[idx] & pos) > 0) {
                     return false;
                 }
-                boxes[idx].add(val);
+                boxes[idx] = boxes[idx] | pos;
             }
         }
+        
         return true;
     }
 }
