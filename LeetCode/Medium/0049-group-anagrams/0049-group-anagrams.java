@@ -8,16 +8,13 @@ class Solution {
         for (int i = 0; i < strs.length; i++) {
             char[] charArr = strs[i].toCharArray();
             Arrays.sort(charArr);
-            String sortStr = String.valueOf(charArr);
-            if (map.containsKey(sortStr)) {
-                map.get(sortStr).add(strs[i]);
-            } else {
-                List<String> list = new ArrayList<>();
-                list.add(strs[i]);
-                map.put(sortStr, list);
-            }
+            String sortedStr = String.valueOf(charArr);
+            
+            map.putIfAbsent(sortedStr, new ArrayList<>());
+            map.get(sortedStr).add(strs[i]);
         }
         
-        return map.values().stream().collect(Collectors.toList());
+        return map.values().stream()
+            .collect(Collectors.toList());
     } 
 }
