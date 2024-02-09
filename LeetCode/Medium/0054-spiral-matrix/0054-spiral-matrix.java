@@ -11,17 +11,15 @@ class Solution {
         int matrixCol = matrix[0].length;
         int row = 0;
         int col = 0;
-        int cnt = 1;
         result.add(matrix[0][0]);
         matrix[0][0] = Integer.MAX_VALUE;
-        while (cnt < matrixRow * matrixCol) {
+        while (result.size() < matrixRow * matrixCol) {
             direction = switch (direction) {
                 case RIGHT -> {
                     while (col + 1 < matrixCol && matrix[row][col + 1] != Integer.MAX_VALUE) {
                         col++;
                         result.add(matrix[row][col]);
                         matrix[row][col] = Integer.MAX_VALUE;
-                        cnt++;
                     }
                     yield Direction.DOWN;
                 }
@@ -30,7 +28,6 @@ class Solution {
                         row++;
                         result.add(matrix[row][col]);
                         matrix[row][col] = Integer.MAX_VALUE;
-                        cnt++;
                     }
                     yield Direction.LEFT;
                 }
@@ -39,7 +36,6 @@ class Solution {
                         col--;
                         result.add(matrix[row][col]);
                         matrix[row][col] = Integer.MAX_VALUE;
-                        cnt++;
                     }
                     yield Direction.UP;
                 }
@@ -48,7 +44,6 @@ class Solution {
                         row--;
                         result.add(matrix[row][col]);
                         matrix[row][col] = Integer.MAX_VALUE;
-                        cnt++;
                     }
                     yield Direction.RIGHT;
                 }
