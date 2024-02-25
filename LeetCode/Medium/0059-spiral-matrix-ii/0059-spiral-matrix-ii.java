@@ -10,17 +10,22 @@ class Solution {
         int d = 0;
         while (cnt <= n * n) {
             matrix[row][col] = cnt++;
-            int r = Math.floorMod(row + dir[d][0], n);
-            int c = Math.floorMod(col + dir[d][1], n);
-            
-            if (matrix[r][c] != 0) {
-                d = (d + 1) % 4;
-            }
-            
             row += dir[d][0];
             col += dir[d][1];
+            
+            if (!isValid(row, col, n) || matrix[row][col] != 0) {
+                row -= dir[d][0];
+                col -= dir[d][1];
+                d = (d + 1) % 4;
+                row += dir[d][0];
+                col += dir[d][1];
+            }
         }
         
         return matrix;
+    }
+    
+    private boolean isValid(int row, int col, int n) {
+        return 0 <= row && row < n && 0 <= col && col < n;
     }
 }
