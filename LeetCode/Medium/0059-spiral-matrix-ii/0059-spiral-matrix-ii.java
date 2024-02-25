@@ -1,54 +1,24 @@
-enum Direction {
-    RIGHT, DOWN, LEFT, UP;
-}
-
 class Solution {
     
     public int[][] generateMatrix(int n) {
-    
         int[][] matrix = new int[n][n];
-        Direction dir = Direction.RIGHT;
+        int[][] dir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
         
-        int val = 1;
         int row = 0;
         int col = 0;
-        boolean flag = true;
-        while (flag) {
-            flag = false;
-            dir = switch (dir) {
-                case RIGHT:
-                    while (col < n && matrix[row][col] == 0) {
-                        matrix[row][col++] = val++;
-                        flag = true;
-                    }
-                    col--;
-                    row++;
-                    yield Direction.DOWN;
-                case DOWN:
-                    while (row < n && matrix[row][col] == 0) {
-                        matrix[row++][col] = val++;
-                        flag = true;
-                    }
-                    row--;
-                    col--;
-                    yield Direction.LEFT;
-                case LEFT:
-                    while (col >= 0 && matrix[row][col] == 0) {
-                        matrix[row][col--] = val++;
-                        flag = true;
-                    }
-                    col++;
-                    row--;
-                    yield Direction.UP;
-                case UP:
-                    while (row >= 0 && matrix[row][col] == 0) {
-                        matrix[row--][col] = val++;
-                        flag = true;
-                    }
-                    row++;
-                    col++;
-                    yield Direction.RIGHT;
-            };
+        int cnt = 1;
+        int d = 0;
+        while (cnt <= n * n) {
+            matrix[row][col] = cnt++;
+            int r = Math.floorMod(row + dir[d][0], n);
+            int c = Math.floorMod(col + dir[d][1], n);
+            
+            if (matrix[r][c] != 0) {
+                d = (d + 1) % 4;
+            }
+            
+            row += dir[d][0];
+            col += dir[d][1];
         }
         
         return matrix;
