@@ -31,9 +31,9 @@ Output: 4
 - `nums` contains distinct values sorted in ascending order  
 - `-10⁴ <= target <= 10⁴`
 
-## 🔗 References  
-- https://leetcode.com/problems/search-insert-position/
-
 ## 📚 Related Topics  
 - Binary Search  
 - Array  
+
+## 🔗 References  
+- https://leetcode.com/problems/search-insert-position/
