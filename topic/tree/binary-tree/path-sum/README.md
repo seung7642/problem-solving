@@ -26,6 +26,7 @@ Output: true
 Explanation: The root-to-leaf path with the target sum is shown
 ```
 
+
 ## ⚡ Constraints  
 - The number of nodes in the tree is in the range `[0, 5000]`
 - `-1000 <= Node.val <= 1000`
