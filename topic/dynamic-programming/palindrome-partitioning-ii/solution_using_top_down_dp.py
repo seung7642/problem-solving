@@ -22,7 +22,7 @@ class Solution:
                 return min_cuts_from_index[start]
             
             min_cuts = n
-            for end in range(start, n - 1):
+            for end in range(start, n):
                 if palindrome_memoization[start][end]:
                     min_cuts = min(min_cuts, 1 + findMinimumCut(end + 1))
 
