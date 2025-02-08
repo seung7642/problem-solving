@@ -18,4 +18,12 @@ class Solution:
         if not root.left and not root.right:
             return root.val
         
-        
+        left_child_leaf = self.flatten_tree(root.left)
+        right_child_leaf = self.flatten_tree(root.right)
+
+        if left_child_leaf:
+            left_child_leaf.right = root.right
+            root.right = root.left
+            root.left = None
+
+        return right_child_leaf if right_child_leaf else left_child_leaf
